@@ -7,6 +7,14 @@ function detectSickPhrase(text) {
 
   const lowerText = text.toLowerCase();
 
+  // Check if any ignore phrase is present — if so, skip entirely
+  for (const ignore of config.ignorePhrases) {
+    if (lowerText.includes(ignore)) {
+      return null;
+    }
+  }
+
+  // Check for sick phrase match
   for (const phrase of config.sickPhrases) {
     if (lowerText.includes(phrase)) {
       return phrase;

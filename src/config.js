@@ -20,22 +20,48 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 const dbPath = path.join(__dirname, '..', 'data', 'slackbot.db');
 
 const sickPhrases = [
-  'headache',
-  'migraine',
   'fever',
   'not feeling well',
-  'sick today',
-  'taking sick leave',
-  'out sick',
+  'sick',
+  'sick leave',
+  'unwell',
+  'cold',
+  'headache',
+  'period leave',
+  'sore throat',
+  'throat pain',
+  'cough',
+  'body pain',
   'body ache',
-  'not well today',
-  'feeling sick',
+  'food poisoning',
+  'stomach infection',
+  'injured',
+  'doctor appointment',
+  'down with fever',
+  'having headache',
+  'bad cold',
+  'not feeling well today',
+  'taking sick leave',
+  'woke up with fever',
+  'food poisoning today',
+  'under the weather',
+];
+
+const ignorePhrases = [
+  'planned leave',
+  'travel',
+  'flight',
+  'errands',
+  'logging off',
+  'afk',
+  'meeting',
+  'personal work',
 ];
 
 const replyMessage =
   'Hope you feel better \u{1F49B} Your company provides free doctor consultations through Loop. ' +
   "If you'd like to speak to a doctor today, you can book one here: " +
-  'https://app.loophealth.com/?source=slackbot';
+  'https://app.loophealth.com/?utm_source=slackbot&utm_medium=slack&utm_campaign=sick_leave_bot';
 
 const cooldownHours = 24;
 
@@ -44,6 +70,7 @@ module.exports = {
   port,
   dbPath,
   sickPhrases,
+  ignorePhrases,
   replyMessage,
   cooldownHours,
 };
