@@ -59,4 +59,33 @@ app.message(async ({ message, say, logger }) => {
   }
 });
 
-module.exports = { app };
+async function joinAllPublicChannels() {
+  let cursor;
+  let joined = 0;
+
+  do {
+    const result = await app.client.conversations.list({
+      types: 'public_channel',
+      exclude_archived: true,
+      limit: 200,
+      cursor,
+    });
+
+    for (const channel of result.channels) {
+      if (!channel.is_member) {
+        try {
+          await app.client.conversations.join({ channel: channel.id });
+          joined++;
+        } catch (err) {
+          // Some channels may restrict joining — skip silently
+        }
+      }
+    }
+
+    cursor = result.response_metadata?.next_cursor;
+  } while (cursor);
+
+  console.log(`Joined ${joined} public channels`);
+}
+
+module.exports = { app, joinAllPublicChannels };

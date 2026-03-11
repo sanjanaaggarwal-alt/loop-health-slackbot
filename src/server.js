@@ -1,7 +1,7 @@
 const http = require('http');
 const config = require('./config');
 const { initDatabase, close: closeDb } = require('./database');
-const { app } = require('./slackApp');
+const { app, joinAllPublicChannels } = require('./slackApp');
 
 let healthServer;
 
@@ -12,6 +12,9 @@ async function start() {
   // Start Slack bot via Socket Mode (no public URL needed)
   await app.start();
   console.log('Slack bot connected via Socket Mode');
+
+  // Auto-join all public channels
+  await joinAllPublicChannels();
 
   // Standalone health check server (for Render / monitoring)
   healthServer = http.createServer((_req, res) => {
