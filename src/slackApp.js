@@ -47,8 +47,15 @@ app.message(async ({ message, say, logger }) => {
 
     // Reply in thread to the original message
     await say({
-      text: config.replyMessage,
+      text: config.channelReplyMessage,
       thread_ts: message.thread_ts || message.ts,
+    });
+
+    // Send a DM with the consultation link
+    const dm = await app.client.conversations.open({ users: message.user });
+    await app.client.chat.postMessage({
+      channel: dm.channel.id,
+      text: config.dmMessage,
     });
 
     logger.info(

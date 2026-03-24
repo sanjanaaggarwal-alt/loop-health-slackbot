@@ -58,10 +58,12 @@ const ignorePhrases = [
   'personal work',
 ];
 
-const replyMessage =
-  'Hope you feel better \u{1F49B} Your company provides free doctor consultations through Loop. ' +
-  "If you'd like to speak to a doctor today, you can book one here: " +
-  'https://app.loophealth.com/?utm_source=slackbot&utm_medium=slack&utm_campaign=sick_leave_bot';
+const channelReplyMessage =
+  'Take care \u{1F49A} Your company provides free doctor consultations through Loop, sharing the details on message.';
+
+const dmMessage =
+  'Hey, hope you are feeling a bit better. Your company provides free doctor consultations through Loop - would you like to speak to a doctor today?\n\n' +
+  'Book here: https://app.loophealth.com/?utm_source=slackbot&utm_medium=slack&utm_campaign=sick_leave_bot';
 
 const cooldownHours = 24;
 
@@ -71,6 +73,7 @@ module.exports = {
   dbPath,
   sickPhrases,
   ignorePhrases,
-  replyMessage,
+  channelReplyMessage,
+  dmMessage,
   cooldownHours,
 };
