@@ -13,8 +13,10 @@ async function start() {
   await app.start();
   console.log('Slack bot connected via Socket Mode');
 
-  // Auto-join all public channels
-  await joinAllPublicChannels();
+  // Auto-join all public channels (non-fatal if it fails)
+  joinAllPublicChannels().catch((err) =>
+    console.warn('Auto-join channels failed:', err.message)
+  );
 
   // Standalone health check server (for Render / monitoring)
   healthServer = http.createServer((_req, res) => {
