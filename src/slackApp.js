@@ -51,13 +51,6 @@ app.message(async ({ message, say, logger }) => {
       thread_ts: message.thread_ts || message.ts,
     });
 
-    // Send a DM with the consultation link
-    const dm = await app.client.conversations.open({ users: message.user });
-    await app.client.chat.postMessage({
-      channel: dm.channel.id,
-      text: config.dmMessage,
-    });
-
     logger.info(
       `Replied to user ${message.user} in channel ${message.channel} for phrase "${matchedPhrase}"`
     );
